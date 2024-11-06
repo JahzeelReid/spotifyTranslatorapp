@@ -1,6 +1,6 @@
-This is a web app turned native app. 
+This is a web app turned native app.
 Objectives:
--initialize spotify api
+-initialize spotify api **DONE**
 -pull user songs from spotify
 -start and stop music through python script
 -pull lyric lists from spotify
