@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import lyrictesting
 
 
 # Load environment variables from .env file
@@ -31,10 +32,11 @@ def checkPlaying():
         print(track['album']['name'])
         print(track['duration_ms']/1000)
         # print(f"Currently playing: {track['name']} by {', '.join([artist['name'] for artist in track['artists']])}")
-        return True
+        return [track['name'], track['artists'][0]['name'], 
+                track['album']['name'], track['duration_ms']/1000]
     else:
         print("No track currently playing")
-        return False
+        return None
 
 
 def start_stop():
@@ -48,4 +50,12 @@ def liked_Songs(val):
         # returns a list of nsted dictionarys
         print(song['track']['name'])
 
-checkPlaying()
+def litmustest():
+    # this function will test if the spotify and
+    # lrc api can meld together
+    current_track = checkPlaying()
+    lyrictesting.getplainLyric(current_track[0], current_track[1], current_track[2], current_track[3])
+
+    
+# checkPlaying()
+litmustest()
