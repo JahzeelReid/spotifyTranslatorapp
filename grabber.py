@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-import lyrictesting
+import lyrictesting as lyrictesting
 
 
 # Load environment variables from .env file

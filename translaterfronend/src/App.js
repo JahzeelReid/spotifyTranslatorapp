@@ -1,8 +1,33 @@
 import logo from "./logo.svg";
 import "./App.css";
+import axios from "axios";
+import { useState } from "react";
 import Buttontest from "./currentplayingsongbutton";
 
 function App() {
+  const [data, setData] = useState(null);
+
+  function getData() {
+    axios({
+      method: "GET",
+      url: "/profile",
+    })
+      .then((response) => {
+        const res = response.data;
+        setData({
+          profile_name: res.name,
+          about_me: res.about,
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +43,14 @@ function App() {
         >
           Learn React
         </a>
-        <p>
-          <Buttontest />
-        </p>
+        <p>get your profile bs</p>
+        <button onClick={getData}>click</button>
+        {data && (
+          <div>
+            <p>Profile name: {data.profile_name}</p>
+            <p>About me: {data.about_me}</p>
+          </div>
+        )}
       </header>
     </div>
   );
