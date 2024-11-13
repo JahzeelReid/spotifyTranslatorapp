@@ -10,13 +10,14 @@ function App() {
   function getData() {
     axios({
       method: "GET",
-      url: "/profile",
+      url: "/",
     })
       .then((response) => {
         const res = response.data;
         setData({
           profile_name: res.name,
           about_me: res.about,
+          lyric: res.lyric, //this is a list of lines
         });
       })
       .catch((error) => {
@@ -49,6 +50,13 @@ function App() {
           <div>
             <p>Profile name: {data.profile_name}</p>
             <p>About me: {data.about_me}</p>
+            {data.lyric && (
+              <ul>
+                {data.lyric.map((phrase, index) => (
+                  <li key={index}>{phrase}</li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
       </header>

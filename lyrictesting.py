@@ -18,6 +18,7 @@ def getplainLyric(tname, aname, album, len):
     )
     found_lyrics = lyrics.plain_lyrics
     print("\n".join(found_lyrics.split("\n")[:10]))
+    return found_lyrics.split("\n")
 
 def getsyncLyric():
     lyrics = api.get_lyrics(
@@ -28,5 +29,6 @@ def getsyncLyric():
     )
     found_lyrics = lyrics.synced_lyrics
     print("\n".join(found_lyrics.split("\n")[:10]))
+    return found_lyrics
 
 # getsyncLyric()

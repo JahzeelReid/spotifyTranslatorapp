@@ -27,13 +27,16 @@ def checkPlaying():
     current_track = sp.current_user_playing_track()
     if current_track is not None:
         track = current_track['item']
-        print(track['name'])
-        print(track['artists'][0]['name'])
-        print(track['album']['name'])
-        print(track['duration_ms']/1000)
+        # print(track['name'])
+        # print(track['artists'][0]['name'])
+        # print(track['album']['name'])
+        # print(track['album'])
+        # print(track['album']['images'][0]['url'])
+        # print(track['duration_ms']/1000)
         # print(f"Currently playing: {track['name']} by {', '.join([artist['name'] for artist in track['artists']])}")
         return [track['name'], track['artists'][0]['name'], 
-                track['album']['name'], track['duration_ms']/1000]
+                track['album']['name'], track['duration_ms']/1000, 
+                track['album']['images'][0]['url']]
     else:
         print("No track currently playing")
         return None
@@ -54,8 +57,11 @@ def litmustest():
     # this function will test if the spotify and
     # lrc api can meld together
     current_track = checkPlaying()
-    lyrictesting.getplainLyric(current_track[0], current_track[1], current_track[2], current_track[3])
+    if current_track:
+        return lyrictesting.getplainLyric(current_track[0], current_track[1], current_track[2], current_track[3])
+    else: 
+        return None
 
     
-# checkPlaying()
-litmustest()
+checkPlaying()
+# litmustest()
