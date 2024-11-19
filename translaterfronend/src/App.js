@@ -10,14 +10,17 @@ function App() {
   function getData() {
     axios({
       method: "GET",
-      url: "/",
+      url: "/profile",
     })
       .then((response) => {
         const res = response.data;
         setData({
-          profile_name: res.name,
-          about_me: res.about,
+          test: res.strin,
+          song_name: res.songname,
+          author: res.author,
+          album_name: res.albumname,
           lyric: res.lyric, //this is a list of lines
+          song_img: res.imgsrc,
         });
       })
       .catch((error) => {
@@ -33,23 +36,24 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        {/* <p>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
+        </p> */}
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
-        <p>get your profile bs</p>
+        </a> */}
+        <p>click button for current song</p>
         <button onClick={getData}>click</button>
         {data && (
           <div>
-            <p>Profile name: {data.profile_name}</p>
-            <p>About me: {data.about_me}</p>
+            <img src={data.song_img} />
+            <p>song: {data.song_name}</p>
+            <p>by: {data.author}</p>
             {data.lyric && (
               <ul>
                 {data.lyric.map((phrase, index) => (
