@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Buttontest from "./currentplayingsongbutton";
 
 function App() {
@@ -32,30 +31,28 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    // Function to be called at each interval
+
+    // Set up the interval
+    const intervalId = setInterval(getData, 800); // 1000ms = 1 second
+
+    // Cleanup function to clear the interval
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
         <p>click button for current song</p>
         <button onClick={getData}>click</button>
         {data && (
           <div>
-            <img src={data.song_img} />
+            <img style={{ width: 200, height: 280 }} src={data.song_img} />
             <p>song: {data.song_name}</p>
             <p>by: {data.author}</p>
             {data.lyric && (
-              <ul>
+              <ul style={{ listStyleType: "none" }}>
                 {data.lyric.map((phrase, index) => (
                   <li key={index}>{phrase}</li>
                 ))}

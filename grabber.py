@@ -30,7 +30,7 @@ def checkPlaying():
         
         progress_seconds = current_track['progress_ms'] // 1000
         minutes, seconds = divmod(progress_seconds, 60)
-        print(track['name'])
+        # print(track['name'])
         # print(track['artists'][0]['name'])
         # print(track['album']['name'])
         # print(track['album'])
@@ -42,7 +42,9 @@ def checkPlaying():
                 track['album']['name'], 
                 track['duration_ms']/1000, 
                 track['album']['images'][0]['url'],
-                [minutes, seconds]]
+                # [minutes, seconds],
+                current_track['progress_ms']
+                ]
     else:
         print("No track currently playing")
         return None
@@ -67,7 +69,29 @@ def litmustest():
         return lyrictesting.getplainLyric(current_track[0], current_track[1], current_track[2], current_track[3])
     else: 
         return None
+    
+def recentlyric(tname, aname, album, dur, target):
+    # current_track = checkPlaying()
+    arr = lyrictesting.getsyncLyricNew(tname, aname, album, dur)
+    # current_track[0], current_track[1], current_track[2], current_track[3]
+    # target = current_track[5]
+    closestLowest = 0
+    closestindex = 0
+    # print(arr)
+    # print(target)
+    for i in range(len(arr)):
+        # iterate over the list 
+        # will sort another time
+        if arr[i][0] > closestLowest and arr[i][0] < target:
+            closestLowest = arr[i][0]
+            closestindex = i
+    print(arr)
+    return [arr[closestindex][1]
+            # , arr[closestindex + 1][1], arr[closestindex + 2][1]
+            ]
+    
 
     
-print(checkPlaying()[5])
+# print(checkPlaying()[5])
+# print(recentlyric())
 # litmustest()
